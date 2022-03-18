@@ -10,14 +10,13 @@ from PIL import Image, ImageDraw
 COLORS = ['purple', 'pink', 'blue', 'cyan', 'green', 'yellow', 'orange', 'red', 'brown' , 'darkred']
 
 def get_coords_for_line(x, y, angle, imwidth, imheight):
-	"This function helps us figure where to draw the lines"
-    x_length = (x-imwidth) / math.cos(angle+180)
-    y_length = (y-imheight) / math.sin(angle+180)
-    length = max(abs(x_length), abs(y_length))
-    endx = x + length * math.cos(math.radians(angle+180))
-    endy = y + length * math.sin(math.radians(angle+180))
-
-    return endx, endy
+	"""This function helps us figure where to draw the lines"""
+	x_length = (x-imwidth) / math.cos(angle+180)
+	y_length = (y-imheight) / math.sin(angle+180)
+	length = max(abs(x_length), abs(y_length))
+	endx = x + length * math.cos(math.radians(angle+180))
+	endy = y + length * math.sin(math.radians(angle+180))
+	return endx, endy
 
 def render(img, digits, method = 'twotone'):
 	x, y = img.width // 2, img.height //2
