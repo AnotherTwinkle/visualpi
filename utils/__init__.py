@@ -1,4 +1,7 @@
 from .PIVALUE import PI
+from .EVALUE import E
+from .PHIVALUE import PHI
+
 def create_coord_data(x, y):
 	a = []
 	for yp in range(0, y):

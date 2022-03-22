@@ -3,7 +3,7 @@ import utils
 import math
 import random
 
-from utils import PI
+from utils import PI, PHI, E
 from PIL import Image, ImageDraw
 
 # Arranged in order of appearence in spectrum
@@ -18,19 +18,19 @@ def get_coords_for_line(x, y, angle, imwidth, imheight):
 	endy = y + length * math.sin(math.radians(angle+180))
 	return endx, endy
 
-def render(img, digits, method = 'twotone'):
+def render(img, digits, constant, method = 'twotone'):
 	x, y = img.width // 2, img.height //2
 	draw = ImageDraw.Draw(img)
 
 	for i in range(digits):
-		n = int(PI[i])
+		n = int(constant[i])
 		if method == 'all':
 			color = COLORS[n]
 		elif method == 'twotone':
 			color = COLORS[n%2]
 
-		a, b = get_coords_for_line(x, y, math.degrees(max(1, n) + i) , 0, 0)
-		draw.line(((x, y), (a, b)), fill= color, width=7)
+		a, b = get_coords_for_line(x, y, math.degrees(max(1, n) + float(f'0.{i}')) , 0, 0)
+		draw.line(((x, y), (a, b)), fill= color, width= 7)
 
 	return img
 
@@ -44,8 +44,8 @@ def main():
 	img = Image.new('RGB', (4096, 4096), color = 'black')
 
 	# SET method TO 'all' for all colors and 'twotone' for 2 colors.
-	# Change digit to control the number of lines in image/digits in pi.
-	img = render(img, digits= 1000, method= 'twotone')
+	# Change digit to control the number of lines in image/digits in pi\
+	img = render(img, digits= 1000, constant= E, method= 'all')
 	save(img, 'output.png')
 
 if __name__ == '__main__':
